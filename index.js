@@ -1,4 +1,4 @@
-import ScrollerComponent from './components/Scroller.vue'
+import ScrollerComponent from './src/components/Scroller.vue'
 
 function install (Vue) {
   if (install.installed) return

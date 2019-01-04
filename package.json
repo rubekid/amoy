@@ -1,8 +1,8 @@
 {
   "name": "amoy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue component",
-  "main": "dist/amoy.min.js",
+  "main": "index.js",
   "author": "rubekid<562618993@qq.com>",
   "homepage": "https://github.com/rubekid/amoy",
   "repository": {
