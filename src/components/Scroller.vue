@@ -188,7 +188,7 @@
     props: {
       onRefresh: Function,
       onInfinite: Function,
-
+      onScroll: Function,
       refreshText: {
         type: String,
         default: '下拉刷新'
@@ -436,6 +436,9 @@
       touchMove(e) {
         e.preventDefault()
         this.scroller.doTouchMove(e.touches, e.timeStamp)
+        if(this.onScroll){
+            this.onScroll(this.getPosition());
+        }
       },
 
       touchEnd(e) {
@@ -463,6 +466,9 @@
           pageY: e.pageY
         }], e.timeStamp)
         this.mousedown = true
+        if(this.onScroll){
+            this.onScroll(this.getPosition());
+        }
       },
 
       mouseUp(e) {
