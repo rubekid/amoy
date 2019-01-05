@@ -3,18 +3,18 @@ import ScrollerComponent from './src/components/Scroller.vue'
 function install (Vue) {
   if (install.installed) return
   install.installed = true
-  Vue.component('scroller', ScrollerComponent)
+  Vue.component('amoy-scroller', ScrollerComponent)
 }
 
-const Scroller = {
+const AmoyScroller = {
   install: install,
   ScrollerComponent
 }
 
 if (typeof window !== undefined && window.Vue) {
-  window.Vue.use(Scroller)
+  window.Vue.use(AmoyScroller)
 }
 
 export {
-    Scroller
+    AmoyScroller
 }
