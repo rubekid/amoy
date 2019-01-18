@@ -251,6 +251,11 @@
         default: '#8FA7FF'
       },
 
+      speedMultiplier:{
+        type: Number,
+        default: 1
+      },
+
       cssClass: String, // content css class
 
       minContentHeight: {
@@ -319,7 +324,8 @@
         snapping: this.snapping,
         animating: this.animating,
         animationDuration: this.animationDuration,
-        bouncing: this.bouncing
+        bouncing: this.bouncing,
+        speedMultiplier: this.speedMultiplier
       })
 
       // enable PullToRefresh
