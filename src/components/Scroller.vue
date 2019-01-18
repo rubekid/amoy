@@ -34,7 +34,7 @@
         </span>
 
         <div class="no-data-text"
-          :class="{'active': !showLoading && loadingState == 2}" :style="{color: loadingLayerColor}" 
+          :class="{'active': !showLoading && loadingState == 2}" :style="{color: loadingLayerColor}"
           v-text="noDataText">
         </div>
       </div>
@@ -274,7 +274,7 @@
       },
 
       showInfiniteLayer () {
-        let contentHeight = 0 
+        let contentHeight = 0
         this.content
           ? contentHeight = this.content.offsetHeight
           : void 666
@@ -353,8 +353,8 @@
         this.infiniteTimer = setInterval(() => {
           let {left, top, zoom} = this.scroller.getValues()
 
-          // 在 keep alive 中 deactivated 的组件长宽变为 0 
-          if (this.content.offsetHeight > 0 && 
+          // 在 keep alive 中 deactivated 的组件长宽变为 0
+          if (this.content.offsetHeight > 0 &&
             top + 60 > this.content.offsetHeight - this.container.clientHeight) {
             if (this.loadingState) return
             this.loadingState = 1
@@ -383,7 +383,7 @@
       }
 
       let { content_width, content_height } = contentSize()
-      
+
       this.resizeTimer = setInterval(() => {
         let {width, height} = contentSize()
         if (width !== content_width || height !== content_height) {
@@ -449,6 +449,7 @@
 
       touchEnd(e) {
         this.scroller.doTouchEnd(e.timeStamp)
+        this.checkScrollEnd()
       },
 
       mouseDown(e) {
@@ -483,6 +484,7 @@
         }
         this.scroller.doTouchEnd(e.timeStamp)
         this.mousedown = false
+        this.checkScrollEnd()
       },
 
       // 获取位置
@@ -507,7 +509,26 @@
         } else {
           this.loadingState = 0
         }
-      }
+      },
+        /**
+         * 检测滚动是否结束
+         */
+        checkScrollEnd(){
+            var pos = this.getPosition();
+            if(this.checkScrollEndTimeout){
+                clearTimeout(this.checkScrollEndTimeout)
+            }
+            this.checkScrollEndTimeout = setTimeout(() => {
+                var _pos = this.getPosition();
+                if(_pos.top != pos.top
+                    || _pos.left != pos.left
+                    || _pos.top < 0
+                    || _pos.left < 0 ){
+                    this.onScroll && this.onScroll(_pos);
+                    this.checkScrollEnd()
+                }
+            }, 16);
+        }
     }
   }
 </script>
