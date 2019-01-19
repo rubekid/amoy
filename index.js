@@ -1,4 +1,6 @@
 import ScrollerComponent from './src/components/Scroller.vue'
+import InfiniteSpinner from './src/components/InfiniteSpinner.vue'
+import RefreshSpinner from './src/components/RefreshSpinner.vue'
 
 function install (Vue) {
   if (install.installed) return
@@ -16,5 +18,7 @@ if (typeof window !== undefined && window.Vue) {
 }
 
 export {
-    AmoyScroller
+    AmoyScroller,
+    InfiniteSpinner,
+    RefreshSpinner
 }
