@@ -517,10 +517,10 @@
 
         // 懒加载处理
         if(this.$Lazyload && !this.lazyTimer){
-            this.lazyTimer = setTimeout(() => {
-                this.$Lazyload.lazyLoadHandler()
-                this.lazyTimer = null
-            }, 200)
+          this.lazyTimer = setTimeout(() => {
+            this.$Lazyload.lazyLoadHandler()
+            this.lazyTimer = null
+          }, 200)
         }
       },
       /**
