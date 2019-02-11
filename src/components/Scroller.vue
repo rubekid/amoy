@@ -300,7 +300,8 @@
         pullToRefreshLayer: undefined,
         mousedown: false,
         infiniteTimer: undefined,
-        resizeTimer: undefined
+        resizeTimer: undefined,
+        lazyTimer: undefined
       }
     },
 
@@ -442,9 +443,7 @@
       touchMove(e) {
         e.preventDefault()
         this.scroller.doTouchMove(e.touches, e.timeStamp)
-        if(this.onScroll){
-            this.onScroll(this.getPosition());
-        }
+        this.handlerScroll()
       },
 
       touchEnd(e) {
@@ -473,9 +472,7 @@
           pageY: e.pageY
         }], e.timeStamp)
         this.mousedown = true
-        if(this.onScroll){
-            this.onScroll(this.getPosition());
-        }
+        this.handlerScroll()
       },
 
       mouseUp(e) {
@@ -510,25 +507,41 @@
           this.loadingState = 0
         }
       },
-        /**
-         * 检测滚动是否结束
-         */
-        checkScrollEnd(){
-            var pos = this.getPosition();
-            if(this.checkScrollEndTimeout){
-                clearTimeout(this.checkScrollEndTimeout)
-            }
-            this.checkScrollEndTimeout = setTimeout(() => {
-                var _pos = this.getPosition();
-                if(_pos.top != pos.top
-                    || _pos.left != pos.left
-                    || _pos.top < 0
-                    || _pos.left < 0 ){
-                    this.onScroll && this.onScroll(_pos);
-                    this.checkScrollEnd()
-                }
-            }, 16);
+      /**
+       * 处理滚动
+       */
+      handlerScroll(pos) {
+        if(this.onScroll){
+            this.onScroll(pos|| this.getPosition())
         }
+
+        // 懒加载处理
+        if(this.$Lazyload && !this.lazyTimer){
+            this.lazyTimer = setTimeout(() => {
+                this.$Lazyload.lazyLoadHandler()
+                this.lazyTimer = null
+            }, 200)
+        }
+      },
+      /**
+       * 检测滚动是否结束
+       */
+      checkScrollEnd(){
+          var pos = this.getPosition();
+          if(this.checkScrollEndTimeout){
+              clearTimeout(this.checkScrollEndTimeout)
+          }
+          this.checkScrollEndTimeout = setTimeout(() => {
+              var _pos = this.getPosition();
+              if(_pos.top != pos.top
+                  || _pos.left != pos.left
+                  || _pos.top < 0
+                  || _pos.left < 0 ){
+                  this.handlerScroll(_pos);
+                  this.checkScrollEnd()
+              }
+          }, 16);
+      }
     }
   }
 </script>
