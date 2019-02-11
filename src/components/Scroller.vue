@@ -527,20 +527,20 @@
        * 检测滚动是否结束
        */
       checkScrollEnd(){
-          var pos = this.getPosition();
-          if(this.checkScrollEndTimeout){
-              clearTimeout(this.checkScrollEndTimeout)
+        var pos = this.getPosition();
+        if(this.checkScrollEndTimeout){
+          clearTimeout(this.checkScrollEndTimeout)
+        }
+        this.checkScrollEndTimeout = setTimeout(() => {
+          var _pos = this.getPosition();
+          if(_pos.top != pos.top
+            || _pos.left != pos.left
+            || _pos.top < 0
+            || _pos.left < 0 ){
+            this.handlerScroll(_pos);
+            this.checkScrollEnd()
           }
-          this.checkScrollEndTimeout = setTimeout(() => {
-              var _pos = this.getPosition();
-              if(_pos.top != pos.top
-                  || _pos.left != pos.left
-                  || _pos.top < 0
-                  || _pos.left < 0 ){
-                  this.handlerScroll(_pos);
-                  this.checkScrollEnd()
-              }
-          }, 16);
+        }, 100);
       }
     }
   }
