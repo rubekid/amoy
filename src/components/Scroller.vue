@@ -404,6 +404,13 @@
       resize() {
         let container = this.container;
         let content = this.content;
+        // 全部为 0 时，不处理（保留最后滚动高度）
+        if (container.clientWidth === 0
+          && container.clientHeight === 0
+          && container.offsetWidth === 0
+          && container.offsetHeight === 0){
+          return
+        }
         this.scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
       },
 
@@ -511,8 +518,9 @@
        * 处理滚动
        */
       handlerScroll(pos) {
+        pos = pos|| this.getPosition()
         if(this.onScroll){
-            this.onScroll(pos|| this.getPosition())
+            this.onScroll(pos)
         }
 
         // 懒加载处理
