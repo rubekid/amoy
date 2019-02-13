@@ -261,6 +261,10 @@
       minContentHeight: {
         type: Number,
         default: 0 // px
+      },
+      locked: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -410,6 +414,9 @@
           && container.offsetWidth === 0
           && container.offsetHeight === 0){
           return
+        }
+        if (this.locked) {
+           return
         }
         this.scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
       },
