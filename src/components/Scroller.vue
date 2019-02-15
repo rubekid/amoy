@@ -58,6 +58,8 @@
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
   }
 
   ._v-container > ._v-content {
@@ -73,6 +75,10 @@
     -o-transform: translateZ(0);
     transform-origin: left top;
     transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
   }
 
   ._v-container > ._v-content > .pull-to-refresh-layer {
